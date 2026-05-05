@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Zenit — Acercando el imposible</title>
+<meta name="description" content="Zenit, mago profesional aragonés. Espectáculos de magia para todo tipo de eventos."/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config={theme:{extend:{colors:{brand:{purple:'#7C3AED','purple-dark':'#4C1D95','purple-deep':'#1a0533',yellow:'#FACC15','yellow-light':'#FDE68A',black:'#09090b'}},fontFamily:{heading:['Montserrat','sans-serif'],body:['Inter','sans-serif']}}}}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#09090b;color:#fff}
+h1,h2,h3,h4{font-family:'Montserrat',sans-serif}
+@keyframes sparkle{0%,100%{opacity:0;transform:scale(0) rotate(0deg)}50%{opacity:1;transform:scale(1) rotate(180deg)}}
+.sparkle{animation:sparkle 3s ease-in-out infinite}
+.sd1{animation-delay:.5s}.sd2{animation-delay:1s}.sd3{animation-delay:1.5s}.sd4{animation-delay:2s}.sd5{animation-delay:2.5s}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+.anim-float{animation:float 4s ease-in-out infinite}
+.fade-in{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+.grad-text{background:linear-gradient(135deg,#FACC15,#fff 50%,#FACC15);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.card-glow{transition:box-shadow .4s,transform .4s,border-color .4s}
+.card-glow:hover{box-shadow:0 0 35px rgba(124,58,237,.4),0 0 60px rgba(250,204,21,.12);transform:translateY(-6px);border-color:rgba(250,204,21,.45)}
+.nav-blur{backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);background:rgba(9,9,11,.75)}
+.divider{display:flex;align-items:center;justify-content:center;gap:12px;padding:1.5rem 0}
+.divider::before,.divider::after{content:'';flex:1;max-width:100px;height:1px;background:linear-gradient(90deg,transparent,#7C3AED,transparent)}
+.tag{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border-radius:9999px;font-size:.7rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.45);font-family:'Montserrat',sans-serif}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar" class="fixed top-0 left-0 w-full z-50 nav-blur border-b border-white/5">
+<div class="max-w-6xl mx-auto px-5 py-4 flex items-center justify-between">
+<a href="#hero" class="flex items-center gap-2 group">
+<div class="w-9 h-9 rounded-full bg-gradient-to-br from-brand-purple to-brand-yellow flex items-center justify-center text-brand-black font-heading font-bold text-sm group-hover:scale-110 transition-transform">Z</div>
+<span class="font-heading font-bold text-white text-sm tracking-widest hidden sm:block">ZENIT</span>
+</a>
+<ul class="flex items-center gap-4 sm:gap-6 text-sm font-medium">
+<li><a href="#bio" class="text-white/60 hover:text-brand-yellow transition-colors hidden sm:block">Bio</a></li>
+<li><a href="#shows" class="text-white/60 hover:text-brand-yellow transition-colors">Shows</a></li>
+<li><a href="#calendario" class="text-white/60 hover:text-brand-yellow transition-colors hidden sm:block">Fechas</a></li>
+<li><a href="#contacto" class="px-4 py-2 rounded-full bg-brand-yellow text-brand-black font-semibold hover:bg-brand-yellow-light transition-colors text-xs tracking-wide">Contacto</a></li>
+</ul>
+</div>
+</nav>
+
+<!-- HERO -->
+<section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-b from-brand-purple-deep via-brand-black to-brand-black"></div>
+<div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(124,58,237,.3)_0%,transparent_65%)]"></div>
+<div class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(250,204,21,.06)_0%,transparent_50%)]"></div>
+<div class="absolute inset-0 pointer-events-none">
+<div class="sparkle absolute top-[12%] left-[18%] w-2 h-2 bg-brand-yellow rounded-full"></div>
+<div class="sparkle sd1 absolute top-[28%] right-[22%] w-1.5 h-1.5 bg-white rounded-full"></div>
+<div class="sparkle sd2 absolute bottom-[32%] left-[12%] w-1 h-1 bg-brand-yellow rounded-full"></div>
+<div class="sparkle sd3 absolute top-[48%] right-[8%] w-2 h-2 bg-brand-yellow/50 rounded-full"></div>
+<div class="sparkle sd4 absolute bottom-[18%] right-[30%] w-1.5 h-1.5 bg-white/60 rounded-full"></div>
+<div class="sparkle sd5 absolute top-[22%] left-[55%] w-1 h-1 bg-brand-yellow rounded-full"></div>
+</div>
+<div class="relative z-10 text-center px-6 max-w-3xl mx-auto">
+<div class="anim-float mb-8 inline-block">
+<div class="w-28 h-28 mx-auto rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center backdrop-blur-sm">
+<span class="text-5xl font-heading font-black grad-text">Z</span>
+</div>
+<p class="text-white/30 text-xs mt-2 tracking-widest uppercase">Logo</p>
+</div>
+<h1 class="text-6xl sm:text-7xl md:text-8xl font-heading font-black tracking-tight mb-3 grad-text">Zenit</h1>
+<p class="text-white/50 text-lg sm:text-xl font-light tracking-wide mb-10">Acercando el imposible</p>
+<div class="flex flex-col sm:flex-row gap-4 justify-center">
+<a href="#shows" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-brand-yellow text-brand-black font-heading font-bold rounded-full hover:bg-brand-yellow-light hover:scale-105 transition-all shadow-lg shadow-brand-yellow/20">
+<i data-lucide="sparkles" class="w-5 h-5"></i> Ver Espectáculos
+</a>
+<a href="#contacto" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full border-2 border-brand-purple text-white font-heading font-bold hover:bg-brand-purple/20 transition-all">
+<i data-lucide="mail" class="w-5 h-5"></i> Contratar
+</a>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-brand-black to-transparent"></div>
+</section>
+
+<!-- BIOGRAFÍA -->
+<section id="bio" class="relative py-24 px-6">
+<div class="max-w-6xl mx-auto">
+<div class="text-center mb-16 fade-in">
+<p class="text-brand-yellow font-heading font-semibold text-sm tracking-[.3em] uppercase mb-3">Sobre mí</p>
+<h2 class="text-4xl sm:text-5xl font-heading font-bold">Biografía</h2>
+<div class="divider"><span class="text-brand-yellow">✦</span></div>
+</div>
+<div class="grid lg:grid-cols-2 gap-12 items-start">
+<!-- Photo side -->
+<div class="fade-in">
+<div class="aspect-[3/4] rounded-2xl bg-white/5 border border-white/10 overflow-hidden flex items-center justify-center relative group">
+<div class="text-center p-8">
+<i data-lucide="image" class="w-16 h-16 mx-auto text-white/15 mb-4"></i>
+<p class="text-white/25 text-sm">Foto de Zenit</p>
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-brand-purple-deep/60 via-transparent to-transparent"></div>
+</div>
+</div>
+<!-- Text side -->
+<div class="fade-in space-y-6">
+<p class="text-white/70 leading-relaxed">
+Hay quienes descubren su vocación con el tiempo. <strong class="text-white">Zenit la encontró con tan solo 9 años</strong>, cuando un juego de cartas dejó de ser un pasatiempo y se convirtió en una obsesión: hacer sentir lo imposible a quien tuviera delante.
+</p>
+<p class="text-white/70 leading-relaxed">
+Desde aquel momento, la magia dejó de ser un hobby para convertirse en un camino. En <strong class="text-white">2020 dio el salto profesional</strong>, debutando en el mítico <strong class="text-brand-yellow">El Sótano Mágico</strong>, uno de los escenarios más respetados de la magia en España. Hoy forma parte de <strong class="text-white">La Compañía del Sótano Mágico</strong>, llevando su arte a cada rincón del país.
+</p>
+<p class="text-white/70 leading-relaxed">
+Pero Zenit no solo actúa: <strong class="text-white">construye comunidad</strong>. Es cofundador de la delegación de la <strong class="text-white">IBM (International Brotherhood of Magicians)</strong> en Zaragoza, conectando a magos de todo Aragón con la mayor hermandad de ilusionismo del mundo.
+</p>
+<p class="text-white/70 leading-relaxed">
+La magia también es herencia. Junto a su padre forma el dúo <strong class="text-brand-yellow">"De tal astilla, tal palo"</strong>, un espectáculo que ha cruzado fronteras — llegando a actuar incluso en <strong class="text-white">Japón</strong>. Una prueba de que la pasión, cuando se comparte, no tiene límites.
+</p>
+
+<!-- Formación -->
+<div class="mt-8 p-6 rounded-xl bg-white/[.03] border border-white/10">
+<h3 class="font-heading font-bold text-lg mb-4 flex items-center gap-2"><i data-lucide="graduation-cap" class="w-5 h-5 text-brand-yellow"></i> Formación</h3>
+<ul class="space-y-2 text-sm text-white/60">
+<li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-purple mt-0.5 shrink-0"></i> 2 años en el Instituto de Magia</li>
+<li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-purple mt-0.5 shrink-0"></i> Formación con Pepín Banzo y Helena Perdomo</li>
+<li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-purple mt-0.5 shrink-0"></i> Máster en Magia Escénica</li>
+<li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-purple mt-0.5 shrink-0"></i> Miembro de la AMA</li>
+</ul>
+</div>
+
+<!-- Palmarés -->
+<div class="p-6 rounded-xl bg-white/[.03] border border-white/10">
+<h3 class="font-heading font-bold text-lg mb-4 flex items-center gap-2"><i data-lucide="trophy" class="w-5 h-5 text-brand-yellow"></i> Palmarés</h3>
+<ul class="space-y-2 text-sm text-white/60">
+<li class="flex items-start gap-2"><i data-lucide="award" class="w-4 h-4 text-brand-yellow mt-0.5 shrink-0"></i> 3º Premio Nacional — Trofeo Javier Antón 2023</li>
+<li class="flex items-start gap-2"><i data-lucide="award" class="w-4 h-4 text-brand-yellow mt-0.5 shrink-0"></i> 3º Premio Internacional — Magic Valongo 2025</li>
+<li class="flex items-start gap-2"><i data-lucide="award" class="w-4 h-4 text-brand-yellow mt-0.5 shrink-0"></i> Participación — Almussafes 2025</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- SHOWS -->
+<section id="shows" class="relative py-24 px-6">
+<div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(124,58,237,.1)_0%,transparent_65%)]"></div>
+<div class="max-w-5xl mx-auto relative z-10">
+<div class="text-center mb-16 fade-in">
+<p class="text-brand-yellow font-heading font-semibold text-sm tracking-[.3em] uppercase mb-3">Espectáculos</p>
+<h2 class="text-4xl sm:text-5xl font-heading font-bold">Shows</h2>
+<div class="divider"><span class="text-brand-yellow">✦</span></div>
+</div>
+<div class="grid md:grid-cols-2 gap-8">
+<!-- Show 1 -->
+<article class="card-glow fade-in rounded-2xl border border-white/10 bg-white/[.03] backdrop-blur-sm p-8 flex flex-col">
+<div class="w-14 h-14 rounded-xl bg-brand-purple/20 border border-brand-purple/30 flex items-center justify-center mb-6">
+<i data-lucide="wand-sparkles" class="w-7 h-7 text-brand-yellow"></i>
+</div>
+<h3 class="font-heading font-bold text-xl sm:text-2xl text-white mb-4 leading-snug">Magia de la buena,<br class="hidden sm:block"/> o al menos intencionada</h3>
+<p class="text-white/50 text-sm leading-relaxed flex-1">
+Este espectáculo es mi repertorio todo terreno. Un espectáculo de una hora y cuarto aproximadamente en el que tanto los niños como los adultos disfrutarán de una magia fresca, innovadora y personal. Durante el show, los niños participarán constantemente tanto desde sus butacas como en el escenario con el mago, además los adultos podrán disfrutar de ver a sus hijos felices, pero eso no evitará que alguno también tenga que interactuar con el mago acompañándolo en algunos efectos. Este espectáculo es ideal para grupos a partir de 10-15 personas, el estilo de magia es magia de salón, con números totalmente verticales y disfrutables por todo el mundo.
+</p>
+<div class="mt-6 pt-5 border-t border-white/5 flex flex-wrap gap-2">
+<span class="tag"><i data-lucide="theater" class="w-3 h-3"></i> Salón</span>
+<span class="tag"><i data-lucide="clock" class="w-3 h-3"></i> 75 min</span>
+<span class="tag"><i data-lucide="users" class="w-3 h-3"></i> Todos los públicos</span>
+</div>
+</article>
+<!-- Show 2 -->
+<article class="card-glow fade-in rounded-2xl border border-white/10 bg-white/[.03] backdrop-blur-sm p-8 flex flex-col">
+<div class="w-14 h-14 rounded-xl bg-brand-purple/20 border border-brand-purple/30 flex items-center justify-center mb-6">
+<i data-lucide="hand" class="w-7 h-7 text-brand-yellow"></i>
+</div>
+<h3 class="font-heading font-bold text-xl sm:text-2xl text-white mb-4 leading-snug">Magia de cóctel</h3>
+<p class="text-white/50 text-sm leading-relaxed flex-1">
+Este es un espectáculo ideal para eventos multitudinarios en los que se desarrolla una comida o un convite en varias mesas, tanto sentados como de pie. En este espectáculo los espectadores no atienden durante toda la actuación al mago, la gente está con su grupo y es el mago el que va acercándose a los pequeños grupos de personas a hacerles magia. Es una experiencia más cercana y personal con efectos más pequeños pero que se sienten en las manos del propio espectador.
+</p>
+<div class="mt-6 pt-5 border-t border-white/5 flex flex-wrap gap-2">
+<span class="tag"><i data-lucide="hand" class="w-3 h-3"></i> Close-up</span>
+<span class="tag"><i data-lucide="clock" class="w-3 h-3"></i> 30–90 min</span>
+<span class="tag"><i data-lucide="users" class="w-3 h-3"></i> Todos los públicos</span>
+</div>
+</article>
+</div>
+</div>
+</section>
+
+<!-- CALENDARIO -->
+<section id="calendario" class="relative py-24 px-6">
+<div class="max-w-5xl mx-auto">
+<div class="text-center mb-16 fade-in">
+<p class="text-brand-yellow font-heading font-semibold text-sm tracking-[.3em] uppercase mb-3">Agenda</p>
+<h2 class="text-4xl sm:text-5xl font-heading font-bold">Próximas Fechas</h2>
+<div class="divider"><span class="text-brand-yellow">✦</span></div>
+</div>
+<div class="grid md:grid-cols-2 gap-8 items-start">
+<div class="space-y-4 fade-in">
+<!-- Date 1 -->
+<div class="flex items-center gap-5 p-5 rounded-xl border border-white/10 bg-white/[.03] hover:border-brand-purple/40 transition-colors group">
+<div class="w-14 h-14 rounded-xl bg-brand-purple/20 flex flex-col items-center justify-center shrink-0">
+<span class="text-brand-yellow font-heading font-bold text-lg leading-none">23</span>
+<span class="text-white/40 text-[.6rem] font-heading uppercase tracking-wider">May</span>
+</div>
+<div>
+<p class="font-heading font-semibold text-white group-hover:text-brand-yellow transition-colors">Restaurante Corona de Aragón</p>
+<p class="text-white/40 text-sm">Sábado · Zaragoza</p>
+</div>
+</div>
+<!-- Date 2 -->
+<div class="flex items-center gap-5 p-5 rounded-xl border border-white/10 bg-white/[.03] hover:border-brand-purple/40 transition-colors group">
+<div class="w-14 h-14 rounded-xl bg-brand-purple/20 flex flex-col items-center justify-center shrink-0">
+<span class="text-brand-yellow font-heading font-bold text-lg leading-none">30</span>
+<span class="text-white/40 text-[.6rem] font-heading uppercase tracking-wider">May</span>
+</div>
+<div>
+<p class="font-heading font-semibold text-white group-hover:text-brand-yellow transition-colors">Hotel Zenit</p>
+<p class="text-white/40 text-sm">Sábado · Zaragoza</p>
+</div>
+</div>
+</div>
+<!-- Atmospheric photo placeholder -->
+<div class="fade-in">
+<div class="aspect-video rounded-2xl bg-white/5 border border-white/10 overflow-hidden flex items-center justify-center relative">
+<div class="text-center p-8">
+<i data-lucide="camera" class="w-12 h-12 mx-auto text-white/10 mb-3"></i>
+<p class="text-white/20 text-sm">Foto atmosférica de Zenit actuando</p>
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-brand-purple-deep/40 to-transparent"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- CONTACTO -->
+<footer id="contacto" class="relative py-24 px-6 border-t border-white/5">
+<div class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(124,58,237,.1)_0%,transparent_60%)]"></div>
+<div class="max-w-4xl mx-auto text-center relative z-10 fade-in">
+<p class="text-brand-yellow font-heading font-semibold text-sm tracking-[.3em] uppercase mb-3">¿Tienes un evento?</p>
+<h2 class="text-4xl sm:text-5xl font-heading font-bold mb-4">Contacto</h2>
+<p class="text-white/45 max-w-lg mx-auto mb-12 leading-relaxed">Hablemos y hagamos que tu próximo evento sea inolvidable.</p>
+<div class="grid sm:grid-cols-3 gap-6 mb-16">
+<a href="mailto:zenitmago@gmail.com" class="flex flex-col items-center gap-3 p-6 rounded-xl border border-white/10 bg-white/[.03] hover:border-brand-yellow/40 hover:bg-white/[.05] transition-all group">
+<i data-lucide="mail" class="w-7 h-7 text-brand-purple group-hover:text-brand-yellow transition-colors"></i>
+<span class="text-sm text-white/60 group-hover:text-white transition-colors">zenitmago@gmail.com</span>
+</a>
+<a href="https://wa.me/34656363626" target="_blank" class="flex flex-col items-center gap-3 p-6 rounded-xl border border-white/10 bg-white/[.03] hover:border-brand-yellow/40 hover:bg-white/[.05] transition-all group">
+<i data-lucide="phone" class="w-7 h-7 text-brand-purple group-hover:text-brand-yellow transition-colors"></i>
+<span class="text-sm text-white/60 group-hover:text-white transition-colors">+34 656 363 626</span>
+</a>
+<a href="https://instagram.com/zenit_mago" target="_blank" class="flex flex-col items-center gap-3 p-6 rounded-xl border border-white/10 bg-white/[.03] hover:border-brand-yellow/40 hover:bg-white/[.05] transition-all group">
+<i data-lucide="instagram" class="w-7 h-7 text-brand-purple group-hover:text-brand-yellow transition-colors"></i>
+<span class="text-sm text-white/60 group-hover:text-white transition-colors">@zenit_mago</span>
+</a>
+</div>
+</div>
+<div class="max-w-6xl mx-auto pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/20 relative z-10">
+<p>&copy; 2025 Zenit — Todos los derechos reservados.</p>
+<p class="flex items-center gap-1">Hecho con <span class="text-brand-yellow">✦</span> magia</p>
+</div>
+</footer>
+
+<script>
+lucide.createIcons();
+const obs=new IntersectionObserver(e=>{e.forEach(el=>{if(el.isIntersecting)el.target.classList.add('visible')})},{threshold:.12});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+window.addEventListener('scroll',()=>{const n=document.getElementById('navbar');n.classList.toggle('shadow-lg',scrollY>50);n.classList.toggle('shadow-black/20',scrollY>50)});
+</script>
+</body>
+</html>
