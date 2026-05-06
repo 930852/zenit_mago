@@ -430,57 +430,58 @@ menuToggle.addEventListener('click',()=>setMenuOpen(menuToggle.getAttribute('ari
 mobileLinks.forEach(link=>link.addEventListener('click',()=>setMenuOpen(false)));
 
 // Lógica de Vídeo Inteligente: Autoplay y Cambio de Icono Dinámico
-// Lógica de Vídeo: Diferenciación de Icono (Mudo vs Sonido)
+// Lógica de Vídeo: Cambio de Icono Dinámico (Mudo vs Sonido)
 const zenVideo = document.getElementById('zenVideo');
 const muteToggle = document.getElementById('muteToggle');
 const volumeIcon = document.getElementById('volumeIcon');
 
-// Función que cambia el dibujo del altavoz
-function refreshVolumeIcon() {
+// Esta función es la que hace la magia de cambiar el dibujo
+function updateVideoIcon() {
   if (zenVideo.muted) {
-    // ESTADO MUDO: Altavoz con X
+    // Si no hay sonido: Altavoz con X
     volumeIcon.setAttribute('data-lucide', 'volume-x');
   } else {
-    // ESTADO CON SONIDO: Altavoz con ondas
+    // Si HAY sonido: Altavoz con ondas (las tres barritas)
     volumeIcon.setAttribute('data-lucide', 'volume-2');
   }
-  // Esto obliga a la web a dibujar el nuevo icono
-  if (window.lucide) {
-    lucide.createIcons();
-  }
+  // REQUERIDO: Esto redibuja el icono en la pantalla
+  lucide.createIcons();
 }
 
-// Control de inicio automático
-async function startVideo() {
+async function playWithSmartSound() {
+  zenVideo.muted = false; 
   try {
     await zenVideo.play();
-    refreshVolumeIcon();
+    updateVideoIcon();
   } catch (err) {
-    console.log("Autoplay bloqueado, se requiere interacción");
+    // Si el navegador bloquea el audio al inicio, lo silencia
+    zenVideo.muted = true;
+    await zenVideo.play();
+    updateVideoIcon();
   }
 }
 
-// Iniciar al hacer scroll
-const observer = new IntersectionObserver((entries) => {
+// Control al hacer scroll
+const videoObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
-      startVideo();
+      playWithSmartSound();
     } else {
       zenVideo.pause();
     }
   });
 }, { threshold: 0.5 });
 
-observer.observe(zenVideo);
+videoObserver.observe(zenVideo);
 
-// EL CAMBIO VISUAL: Al hacer clic se diferencia el icono
+// Evento de clic para cambiar el estado y el logo
 muteToggle.addEventListener('click', () => {
   zenVideo.muted = !zenVideo.muted;
-  refreshVolumeIcon();
+  updateVideoIcon();
 });
 
-// Estado inicial
-refreshVolumeIcon();
+// Forzar estado inicial
+updateVideoIcon();
 </script>
 </body>
 </html>
