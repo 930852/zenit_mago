@@ -15,7 +15,8 @@ tailwind.config={theme:{extend:{colors:{brand:{purple:'#7C3AED','purple-dark':'#
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Inter',sans-serif;background:#09090b;color:#fff}
+html{overflow-x:hidden}
+body{font-family:'Inter',sans-serif;background:#09090b;color:#fff;overflow-x:hidden}
 h1,h2,h3,h4{font-family:'Montserrat',sans-serif}
 @keyframes sparkle{0%,100%{opacity:0;transform:scale(0) rotate(0deg)}50%{opacity:1;transform:scale(1) rotate(180deg)}}
 .sparkle{animation:sparkle 3s ease-in-out infinite}
@@ -68,45 +69,49 @@ h1,h2,h3,h4{font-family:'Montserrat',sans-serif}
     width: 550px !important;
     max-width: none !important;
     height: auto !important;
-    left: -60px;
-    top: 20px;
-    margin-bottom: 14px !important;
+    display: block !important;
+    margin: 0 auto 14px auto !important;
     position: relative;
+    left: 0;
+    top: 20px;
   }
 }
 
 /* MOBILE (600px and below) */
 @media (max-width: 600px) {
   .hero-logo {
-    width: 600px !important;
+    width: 480px !important;
     max-width: none !important;
     height: auto !important;
+    display: block !important;
+    margin: 0 auto 12px auto !important;
     position: relative;
-    left: 25px;
+    left: -2px;
     top: 15px;
-    margin-bottom: 12px !important;
-    position: relative;
+    overflow: visible;
   }
 }
 
 /* SMALL MOBILE (480px and below) */
 @media (max-width: 480px) {
   .hero-logo {
-    width: 550px !important;
+    width: 420px !important;
     max-width: none !important;
     height: auto !important;
-    left: 10px;
-    top: 22px;
-    margin-bottom: 10px !important;
+    display: block !important;
+    margin: 0 auto 10px auto !important;
     position: relative;
+    left: -1px;
+    top: 22px;
+    overflow: visible;
   }
 }
 
 /* MOBILE HERO OVERFLOW HANDLING */
 @media (max-width: 768px) {
   #hero {
-    overflow-x: visible !important;
-    overflow-y: visible !important;
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
   }
 }
 </style>
