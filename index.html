@@ -31,6 +31,66 @@ h1,h2,h3,h4{font-family:'Montserrat',sans-serif}
 .divider{display:flex;align-items:center;justify-content:center;gap:12px;padding:1.5rem 0}
 .divider::before,.divider::after{content:'';flex:1;max-width:100px;height:1px;background:linear-gradient(90deg,transparent,#7C3AED,transparent)}
 .tag{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border-radius:9999px;font-size:.7rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.45);font-family:'Montserrat',sans-serif}
+
+/* GLOBAL HERO LOGO STYLING - ALL SCREEN SIZES */
+.hero-logo {
+  position: relative;
+  left: -3px;
+  top: 12px;
+  max-width: min(85vw, 1000px) !important;
+  width: 100% !important;
+  height: auto !important;
+  display: block !important;
+  object-fit: contain !important;
+  margin: 0 auto 16px auto !important;
+}
+
+/* TABLET & DESKTOP (769px+) */
+@media (min-width: 769px) {
+  .hero-logo {
+    width: 2000px !important; /* Aumenta este número hasta que se vea gigante */
+    height: auto;           /* Esto mantiene la proporción y que no se deforme */
+    display: block;
+    margin: 0 auto;
+    /* POSICIÓN: Usa estos dos para "arrastrar" el logo */
+    position: relative;
+    left: -40px;  /* Más negativo = más a la IZQUIERDA */
+    top: 50px;    /* Más positivo = más ABAJO */
+    
+    /* Elimina cualquier cosa que lo centre automáticamente si te estorba */
+    transform: none; 
+}
+}
+
+/* TABLET (768px) */
+@media (max-width: 768px) and (min-width: 601px) {
+  .hero-logo {
+    max-width: min(88vw, 650px) !important;
+    left: -2px;
+    top: 10px;
+    margin-bottom: 14px !important;
+  }
+}
+
+/* MOBILE (600px and below) */
+@media (max-width: 600px) {
+  .hero-logo {
+    max-width: min(92vw, 480px) !important;
+    left: 0;
+    top: 8px;
+    margin-bottom: 12px !important;
+  }
+}
+
+/* SMALL MOBILE (480px and below) */
+@media (max-width: 480px) {
+  .hero-logo {
+    max-width: min(96vw, 380px) !important;
+    left: 1px;
+    top: 6px;
+    margin-bottom: 10px !important;
+  }
+}
 </style>
 </head>
 <body>
@@ -73,8 +133,8 @@ h1,h2,h3,h4{font-family:'Montserrat',sans-serif}
 <div class="sparkle sd5 absolute top-[22%] left-[55%] w-1 h-1 bg-brand-yellow rounded-full"></div>
 </div>
 <div class="relative z-10 text-center px-6 max-w-3xl mx-auto w-full flex flex-col items-center">
-<div class="w-full flex justify-center items-center mb-6 md:mb-8">
-<img src="logo.png" alt="Zenit Logo" class="hero-logo block w-full max-w-[min(80vw,900px)] h-auto object-contain mx-auto shrink-0"/>
+<div class="w-full flex justify-center items-center">
+<img src="logo.png" alt="Zenit Logo" class="hero-logo"/>
 </div>
 <h1 class="text-6xl sm:text-7xl md:text-8xl font-heading font-black tracking-tight mb-3 grad-text">Zenit</h1>
 <p class="text-white/50 text-lg sm:text-xl font-light tracking-wide mb-10">Acercando el imposible</p>
