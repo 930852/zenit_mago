@@ -291,12 +291,11 @@ Your browser does not support the video tag.
 
 <!-- Mute/Unmute Toggle Button -->
 <button
-id="muteToggle"
-class="absolute bottom-4 right-4 inline-flex items-center justify-center gap-2 px-4 py-2 bg-brand-yellow text-brand-black font-heading font-semibold rounded-full hover:bg-brand-yellow-light transition-all shadow-lg hover:scale-105 z-30"
-aria-label="Toggle mute"
+  id="muteToggle"
+  class="absolute bottom-4 right-4 flex items-center justify-center w-12 h-12 bg-black/40 backdrop-blur-md text-white rounded-full border border-white/20 hover:bg-brand-yellow hover:text-brand-black transition-all shadow-xl z-30 group/btn"
+  aria-label="Alternar sonido"
 >
-<i data-lucide="volume-2" id="volumeIcon" class="w-4 h-4"></i>
-<span id="muteText" class="text-sm">Sonido</span>
+  <i data-lucide="volume-x" id="volumeIcon" class="w-6 h-6"></i>
 </button>
 </div>
 </div>
@@ -431,60 +430,52 @@ menuToggle.addEventListener('click',()=>setMenuOpen(menuToggle.getAttribute('ari
 mobileLinks.forEach(link=>link.addEventListener('click',()=>setMenuOpen(false)));
 
 // Video autoplay and sound logic
-const zenVideo=document.getElementById('zenVideo');
-const muteToggle=document.getElementById('muteToggle');
-const volumeIcon=document.getElementById('volumeIcon');
-const muteText=document.getElementById('muteText');
-let isMuted=true;
+// Lógica de Vídeo Inteligente: Autoplay y Cambio de Icono Dinámico
+const zenVideo = document.getElementById('zenVideo');
+const muteToggle = document.getElementById('muteToggle');
+const volumeIcon = document.getElementById('volumeIcon');
 
-function updateMuteButton(){
-  if(isMuted){
-    volumeIcon.setAttribute('data-lucide','volume-x');
-    muteText.textContent='Sin sonido';
-  }else{
-    volumeIcon.setAttribute('data-lucide','volume-2');
-    muteText.textContent='Sonido';
+function updateVideoIcon(isMutedState) {
+  // Si está silenciado, ponemos la X. Si tiene sonido, ponemos las ondas (volume-2)
+  if (isMutedState) {
+    volumeIcon.setAttribute('data-lucide', 'volume-x');
+  } else {
+    volumeIcon.setAttribute('data-lucide', 'volume-2');
   }
+  // Refrescamos Lucide para que el cambio sea visual
   lucide.createIcons();
 }
 
-function attemptAutoplay(){
-  zenVideo.muted=false;
-  const playPromise=zenVideo.play();
-  if(playPromise!==undefined){
-    playPromise.catch(error=>{
-      zenVideo.muted=true;
-      zenVideo.play();
-      isMuted=true;
-      updateMuteButton();
-    });
+async function playWithSmartSound() {
+  zenVideo.muted = false; 
+  try {
+    await zenVideo.play();
+    updateVideoIcon(false);
+  } catch (err) {
+    // Fallback: si el navegador bloquea el audio, reproducimos en silencio
+    zenVideo.muted = true;
+    await zenVideo.play();
+    updateVideoIcon(true);
   }
 }
 
-// Intersection Observer for autoplay on scroll
-const videoObserver=new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting&&zenVideo.paused){
-      attemptAutoplay();
-    }else if(!entry.isIntersecting){
+const videoObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      playWithSmartSound();
+    } else {
       zenVideo.pause();
     }
   });
-},{threshold:.5});
+}, { threshold: 0.5 });
 
 videoObserver.observe(zenVideo);
 
-// Mute toggle button
-muteToggle.addEventListener('click',()=>{
-  isMuted=!isMuted;
-  zenVideo.muted=isMuted;
-  updateMuteButton();
-  if(!isMuted&&zenVideo.paused){
-    zenVideo.play();
-  }
+muteToggle.addEventListener('click', () => {
+  // Alternamos el estado de silencio del video
+  zenVideo.muted = !zenVideo.muted;
+  updateVideoIcon(zenVideo.muted);
 });
-
-updateMuteButton();
 </script>
 </body>
 </html>
