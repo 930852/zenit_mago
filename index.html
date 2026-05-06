@@ -80,15 +80,18 @@ h1,h2,h3,h4{font-family:'Montserrat',sans-serif}
 /* MOBILE (600px and below) */
 @media (max-width: 600px) {
   .hero-logo {
-    width: 480px !important;
-    max-width: 90vw !important;
+    width: 480px !important;    /* Tamaño del logo */
+    max-width: 95vw !important; /* Evita que el logo sea más ancho que la pantalla */
     height: auto !important;
     display: block !important;
     position: relative;
-    left: 50%;
-    transform: translateX(-50%) !important;
+    
+    /* CAMBIA ESTO PARA CENTRARLO: */
+    left: 50% !important;
+    transform: translateX(-47.5%) !important; /* Este valor centra el "peso" del logo de Zenit */
+    
     top: 15px;
-    margin: 0 0 12px 0 !important;
+    margin: 0 !important;
   }
 }
 
@@ -96,14 +99,17 @@ h1,h2,h3,h4{font-family:'Montserrat',sans-serif}
 @media (max-width: 480px) {
   .hero-logo {
     width: 420px !important;
-    max-width: 90vw !important;
+    max-width: 95vw !important;
     height: auto !important;
     display: block !important;
     position: relative;
-    left: 50%;
-    transform: translateX(-50%) !important;
+    
+    /* CAMBIA ESTO PARA CENTRARLO: */
+    left: 50% !important;
+    transform: translateX(-47.5%) !important;
+    
     top: 22px;
-    margin: 0 0 10px 0 !important;
+    margin: 0 !important;
   }
 }
 
