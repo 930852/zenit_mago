@@ -429,20 +429,19 @@ const setMenuOpen=(open)=>{
 menuToggle.addEventListener('click',()=>setMenuOpen(menuToggle.getAttribute('aria-expanded')!=='true'));
 mobileLinks.forEach(link=>link.addEventListener('click',()=>setMenuOpen(false)));
 
-// Video autoplay and sound logic
 // Lógica de Vídeo Inteligente: Autoplay y Cambio de Icono Dinámico
 const zenVideo = document.getElementById('zenVideo');
 const muteToggle = document.getElementById('muteToggle');
 const volumeIcon = document.getElementById('volumeIcon');
 
-function updateVideoIcon(isMutedState) {
-  // Si está silenciado, ponemos la X. Si tiene sonido, ponemos las ondas (volume-2)
-  if (isMutedState) {
+// Función única para cambiar el dibujo del altavoz
+function updateVideoIcon() {
+  if (zenVideo.muted) {
     volumeIcon.setAttribute('data-lucide', 'volume-x');
   } else {
     volumeIcon.setAttribute('data-lucide', 'volume-2');
   }
-  // Refrescamos Lucide para que el cambio sea visual
+  // IMPORTANTE: Esta línea transforma el código en el dibujo real
   lucide.createIcons();
 }
 
@@ -450,15 +449,16 @@ async function playWithSmartSound() {
   zenVideo.muted = false; 
   try {
     await zenVideo.play();
-    updateVideoIcon(false);
+    updateVideoIcon();
   } catch (err) {
-    // Fallback: si el navegador bloquea el audio, reproducimos en silencio
+    // Si el navegador bloquea el sonido inicial, lo ponemos en mudo
     zenVideo.muted = true;
     await zenVideo.play();
-    updateVideoIcon(true);
+    updateVideoIcon();
   }
 }
 
+// Iniciar video al hacer scroll
 const videoObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -471,11 +471,14 @@ const videoObserver = new IntersectionObserver((entries) => {
 
 videoObserver.observe(zenVideo);
 
+// Control manual del botón circular
 muteToggle.addEventListener('click', () => {
-  // Alternamos el estado de silencio del video
   zenVideo.muted = !zenVideo.muted;
-  updateVideoIcon(zenVideo.muted);
+  updateVideoIcon();
 });
+
+// Estado inicial
+updateVideoIcon();
 </script>
 </body>
 </html>
