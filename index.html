@@ -276,6 +276,30 @@ Este es un espectáculo ideal para eventos multitudinarios en los que se desarro
 </div>
 </article>
 </div>
+<!-- Video Section -->
+<div class="mt-12 fade-in">
+<div class="relative group rounded-2xl border border-white/10 bg-white/[.03] overflow-hidden card-glow" style="aspect-ratio: 16/9; max-width: 800px; margin: 0 auto;">
+<video
+id="zenVideo"
+class="w-full h-full object-cover"
+playsinline
+poster="zenit_video.jpg"
+>
+<source src="zenit_video.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
+
+<!-- Mute/Unmute Toggle Button -->
+<button
+id="muteToggle"
+class="absolute bottom-4 right-4 inline-flex items-center justify-center gap-2 px-4 py-2 bg-brand-yellow text-brand-black font-heading font-semibold rounded-full hover:bg-brand-yellow-light transition-all shadow-lg hover:scale-105 z-30"
+aria-label="Toggle mute"
+>
+<i data-lucide="volume-2" id="volumeIcon" class="w-4 h-4"></i>
+<span id="muteText" class="text-sm">Sonido</span>
+</button>
+</div>
+</div>
 </div>
 </section>
 
@@ -405,6 +429,62 @@ const setMenuOpen=(open)=>{
 };
 menuToggle.addEventListener('click',()=>setMenuOpen(menuToggle.getAttribute('aria-expanded')!=='true'));
 mobileLinks.forEach(link=>link.addEventListener('click',()=>setMenuOpen(false)));
+
+// Video autoplay and sound logic
+const zenVideo=document.getElementById('zenVideo');
+const muteToggle=document.getElementById('muteToggle');
+const volumeIcon=document.getElementById('volumeIcon');
+const muteText=document.getElementById('muteText');
+let isMuted=true;
+
+function updateMuteButton(){
+  if(isMuted){
+    volumeIcon.setAttribute('data-lucide','volume-x');
+    muteText.textContent='Sin sonido';
+  }else{
+    volumeIcon.setAttribute('data-lucide','volume-2');
+    muteText.textContent='Sonido';
+  }
+  lucide.createIcons();
+}
+
+function attemptAutoplay(){
+  zenVideo.muted=false;
+  const playPromise=zenVideo.play();
+  if(playPromise!==undefined){
+    playPromise.catch(error=>{
+      zenVideo.muted=true;
+      zenVideo.play();
+      isMuted=true;
+      updateMuteButton();
+    });
+  }
+}
+
+// Intersection Observer for autoplay on scroll
+const videoObserver=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting&&zenVideo.paused){
+      attemptAutoplay();
+    }else if(!entry.isIntersecting){
+      zenVideo.pause();
+    }
+  });
+},{threshold:.5});
+
+videoObserver.observe(zenVideo);
+
+// Mute toggle button
+muteToggle.addEventListener('click',()=>{
+  isMuted=!isMuted;
+  zenVideo.muted=isMuted;
+  updateMuteButton();
+  if(!isMuted&&zenVideo.paused){
+    zenVideo.play();
+  }
+});
+
+updateMuteButton();
 </script>
 </body>
 </html>
