@@ -292,7 +292,7 @@ Your browser does not support the video tag.
 <!-- Mute/Unmute Toggle Button -->
 <button
   id="muteToggle"
-  class="absolute bottom-4 right-4 flex items-center justify-center w-12 h-12 bg-black/40 backdrop-blur-md text-white rounded-full border border-white/20 hover:bg-brand-yellow hover:text-brand-black transition-all shadow-xl z-30 group/btn"
+  class="absolute bottom-4 right-4 flex items-center justify-center w-12 h-12 bg-black/40 backdrop-blur-md text-white rounded-full border border-white/20 hover:bg-brand-yellow hover:text-brand-black transition-all shadow-xl z-30"
   aria-label="Alternar sonido"
 >
   <i data-lucide="volume-x" id="volumeIcon" class="w-6 h-6"></i>
@@ -430,18 +430,21 @@ menuToggle.addEventListener('click',()=>setMenuOpen(menuToggle.getAttribute('ari
 mobileLinks.forEach(link=>link.addEventListener('click',()=>setMenuOpen(false)));
 
 // Lógica de Vídeo Inteligente: Autoplay y Cambio de Icono Dinámico
+// Lógica de Vídeo: Cambio de Icono Dinámico (Mudo vs Sonido)
 const zenVideo = document.getElementById('zenVideo');
 const muteToggle = document.getElementById('muteToggle');
 const volumeIcon = document.getElementById('volumeIcon');
 
-// Función única para cambiar el dibujo del altavoz
+// Esta función es la que hace la magia de cambiar el dibujo
 function updateVideoIcon() {
   if (zenVideo.muted) {
+    // Si no hay sonido: Altavoz con X
     volumeIcon.setAttribute('data-lucide', 'volume-x');
   } else {
+    // Si HAY sonido: Altavoz con ondas (las tres barritas)
     volumeIcon.setAttribute('data-lucide', 'volume-2');
   }
-  // IMPORTANTE: Esta línea transforma el código en el dibujo real
+  // REQUERIDO: Esto redibuja el icono en la pantalla
   lucide.createIcons();
 }
 
@@ -451,14 +454,14 @@ async function playWithSmartSound() {
     await zenVideo.play();
     updateVideoIcon();
   } catch (err) {
-    // Si el navegador bloquea el sonido inicial, lo ponemos en mudo
+    // Si el navegador bloquea el audio al inicio, lo silencia
     zenVideo.muted = true;
     await zenVideo.play();
     updateVideoIcon();
   }
 }
 
-// Iniciar video al hacer scroll
+// Control al hacer scroll
 const videoObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -471,13 +474,13 @@ const videoObserver = new IntersectionObserver((entries) => {
 
 videoObserver.observe(zenVideo);
 
-// Control manual del botón circular
+// Evento de clic para cambiar el estado y el logo
 muteToggle.addEventListener('click', () => {
   zenVideo.muted = !zenVideo.muted;
   updateVideoIcon();
 });
 
-// Estado inicial
+// Forzar estado inicial
 updateVideoIcon();
 </script>
 </body>
