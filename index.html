@@ -429,45 +429,51 @@ const setMenuOpen=(open)=>{
 menuToggle.addEventListener('click',()=>setMenuOpen(menuToggle.getAttribute('aria-expanded')!=='true'));
 mobileLinks.forEach(link=>link.addEventListener('click',()=>setMenuOpen(false)));
 
-// Lógica de Vídeo: Cambio de Icono y Color de Fondo
+// Lógica de Vídeo: Empieza transparente (Mudo) y cambia a Amarillo (Sonido)
 const zenVideo = document.getElementById('zenVideo');
 const muteToggle = document.getElementById('muteToggle');
 const volumeIcon = document.getElementById('volumeIcon');
 
 function updateMuteVisuals() {
   if (zenVideo.muted) {
-    // ESTADO MUDO: Fondo transparente, texto/icono blanco, icono X
+    // MUDO: Botón Transparente + Icono X
     muteToggle.classList.remove('bg-brand-yellow', 'text-brand-black');
     muteToggle.classList.add('bg-transparent', 'text-white');
     volumeIcon.setAttribute('data-lucide', 'volume-x');
   } else {
-    // ESTADO SONIDO: Fondo amarillo, texto/icono negro, icono ONDAS
+    // CON SONIDO: Botón Amarillo + Icono Ondas
     muteToggle.classList.remove('bg-transparent', 'text-white');
     muteToggle.classList.add('bg-brand-yellow', 'text-brand-black');
     volumeIcon.setAttribute('data-lucide', 'volume-2');
   }
-  // Refrescar el icono visualmente
-  lucide.createIcons();
+  // Redibuja el icono de la librería Lucide
+  if (window.lucide) {
+    lucide.createIcons();
+  }
 }
 
-// Control al hacer clic
+// Forzar estado inicial al cargar la página
+zenVideo.muted = true; 
+updateMuteVisuals();
+
+// Evento de clic
 muteToggle.addEventListener('click', () => {
   zenVideo.muted = !zenVideo.muted;
   updateMuteVisuals();
+  if (!zenVideo.muted && zenVideo.paused) {
+    zenVideo.play();
+  }
 });
 
-// Autostart con Observer
+// Autoplay cuando el usuario hace scroll
 const videoObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
-      zenVideo.play().catch(() => {
-        zenVideo.muted = true;
-        zenVideo.play();
-      });
+      // Intentamos reproducir siempre en mudo para que el navegador no lo bloquee
+      zenVideo.play().catch(() => console.log("Reproducción automática esperando interacción"));
     } else {
       zenVideo.pause();
     }
-    updateMuteVisuals();
   });
 }, { threshold: 0.5 });
 
