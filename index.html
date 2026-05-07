@@ -292,7 +292,7 @@ Your browser does not support the video tag.
 <!-- Mute/Unmute Toggle Button -->
 <button
   id="muteToggle"
-  class="absolute bottom-4 right-4 flex items-center justify-center w-12 h-12 bg-black/40 backdrop-blur-md text-white rounded-full border border-white/20 hover:bg-brand-yellow hover:text-brand-black transition-all shadow-xl z-30"
+  class="absolute bottom-4 right-4 flex items-center justify-center w-12 h-12 rounded-full border border-white/20 transition-all shadow-xl z-30 bg-transparent text-white"
   aria-label="Alternar sonido"
 >
   <i data-lucide="volume-x" id="volumeIcon" class="w-6 h-6"></i>
@@ -429,59 +429,49 @@ const setMenuOpen=(open)=>{
 menuToggle.addEventListener('click',()=>setMenuOpen(menuToggle.getAttribute('aria-expanded')!=='true'));
 mobileLinks.forEach(link=>link.addEventListener('click',()=>setMenuOpen(false)));
 
-// Lógica de Vídeo Inteligente: Autoplay y Cambio de Icono Dinámico
-// Lógica de Vídeo: Cambio de Icono Dinámico (Mudo vs Sonido)
+// Lógica de Vídeo: Cambio de Icono y Color de Fondo
 const zenVideo = document.getElementById('zenVideo');
 const muteToggle = document.getElementById('muteToggle');
 const volumeIcon = document.getElementById('volumeIcon');
 
-// Esta función es la que hace la magia de cambiar el dibujo
-function updateVideoIcon() {
+function updateMuteVisuals() {
   if (zenVideo.muted) {
-    // Si no hay sonido: Altavoz con X
+    // ESTADO MUDO: Fondo transparente, texto/icono blanco, icono X
+    muteToggle.classList.remove('bg-brand-yellow', 'text-brand-black');
+    muteToggle.classList.add('bg-transparent', 'text-white');
     volumeIcon.setAttribute('data-lucide', 'volume-x');
   } else {
-    // Si HAY sonido: Altavoz con ondas (las tres barritas)
+    // ESTADO SONIDO: Fondo amarillo, texto/icono negro, icono ONDAS
+    muteToggle.classList.remove('bg-transparent', 'text-white');
+    muteToggle.classList.add('bg-brand-yellow', 'text-brand-black');
     volumeIcon.setAttribute('data-lucide', 'volume-2');
   }
-  // REQUERIDO: Esto redibuja el icono en la pantalla
+  // Refrescar el icono visualmente
   lucide.createIcons();
 }
 
-async function playWithSmartSound() {
-  zenVideo.muted = false; 
-  try {
-    await zenVideo.play();
-    updateVideoIcon();
-  } catch (err) {
-    // Si el navegador bloquea el audio al inicio, lo silencia
-    zenVideo.muted = true;
-    await zenVideo.play();
-    updateVideoIcon();
-  }
-}
+// Control al hacer clic
+muteToggle.addEventListener('click', () => {
+  zenVideo.muted = !zenVideo.muted;
+  updateMuteVisuals();
+});
 
-// Control al hacer scroll
-const videoObserver = new IntersectionObserver((entries) => {
+// Autostart con Observer
+const videoObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
-      playWithSmartSound();
+      zenVideo.play().catch(() => {
+        zenVideo.muted = true;
+        zenVideo.play();
+      });
     } else {
       zenVideo.pause();
     }
+    updateMuteVisuals();
   });
 }, { threshold: 0.5 });
 
 videoObserver.observe(zenVideo);
-
-// Evento de clic para cambiar el estado y el logo
-muteToggle.addEventListener('click', () => {
-  zenVideo.muted = !zenVideo.muted;
-  updateVideoIcon();
-});
-
-// Forzar estado inicial
-updateVideoIcon();
 </script>
 </body>
 </html>
