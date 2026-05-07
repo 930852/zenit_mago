@@ -295,7 +295,7 @@ Your browser does not support the video tag.
   class="absolute bottom-4 right-4 flex items-center justify-center w-12 h-12 rounded-full border border-white/20 transition-all shadow-xl z-30 bg-transparent text-white"
   aria-label="Alternar sonido"
 >
-  <i data-lucide="volume-x" id="volumeIcon" class="w-6 h-6"></i>
+  <i data-lucide="volume-2" id="volumeIcon" class="w-6 h-6"></i>
 </button>
 </div>
 </div>
@@ -429,48 +429,47 @@ const setMenuOpen=(open)=>{
 menuToggle.addEventListener('click',()=>setMenuOpen(menuToggle.getAttribute('aria-expanded')!=='true'));
 mobileLinks.forEach(link=>link.addEventListener('click',()=>setMenuOpen(false)));
 
-// Lógica de Vídeo: Empieza transparente (Mudo) y cambia a Amarillo (Sonido)
+// Lógica de Vídeo: Fondo dinámico con Icono Fijo
 const zenVideo = document.getElementById('zenVideo');
 const muteToggle = document.getElementById('muteToggle');
-const volumeIcon = document.getElementById('volumeIcon');
 
 function updateMuteVisuals() {
   if (zenVideo.muted) {
-    // MUDO: Botón Transparente + Icono X
+    // MUDO: Fondo transparente, borde visible
     muteToggle.classList.remove('bg-brand-yellow', 'text-brand-black');
     muteToggle.classList.add('bg-transparent', 'text-white');
-    volumeIcon.setAttribute('data-lucide', 'volume-x');
   } else {
-    // CON SONIDO: Botón Amarillo + Icono Ondas
+    // CON SONIDO: Fondo amarillo, icono negro
     muteToggle.classList.remove('bg-transparent', 'text-white');
     muteToggle.classList.add('bg-brand-yellow', 'text-brand-black');
-    volumeIcon.setAttribute('data-lucide', 'volume-2');
-  }
-  // Redibuja el icono de la librería Lucide
-  if (window.lucide) {
-    lucide.createIcons();
   }
 }
 
-// Forzar estado inicial al cargar la página
-zenVideo.muted = true; 
+// Estado inicial: Mudo y transparente
+zenVideo.muted = true;
 updateMuteVisuals();
 
-// Evento de clic
+// Evento de clic para alternar el color
 muteToggle.addEventListener('click', () => {
   zenVideo.muted = !zenVideo.muted;
   updateMuteVisuals();
+  
+  // Si activan sonido y el vídeo estaba pausado, le damos al play
   if (!zenVideo.muted && zenVideo.paused) {
     zenVideo.play();
   }
 });
 
-// Autoplay cuando el usuario hace scroll
+// Autoplay al hacer scroll
 const videoObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
-      // Intentamos reproducir siempre en mudo para que el navegador no lo bloquee
-      zenVideo.play().catch(() => console.log("Reproducción automática esperando interacción"));
+      zenVideo.play().catch(() => {
+        // El navegador obliga a que empiece mudo si es autoplay
+        zenVideo.muted = true;
+        updateMuteVisuals();
+        zenVideo.play();
+      });
     } else {
       zenVideo.pause();
     }
