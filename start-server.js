@@ -1,0 +1,33 @@
+const http = require('http');
+const fs = require('fs');
+const path = require('path');
+
+const PORT = 8000;
+const DIR = __dirname;
+
+const server = http.createServer((req, res) => {
+  let filePath = path.join(DIR, req.url === '/' ? 'index.html' : req.url);
+
+  fs.readFile(filePath, (err, data) => {
+    if (err) {
+      res.writeHead(404);
+      res.end('Not Found');
+      return;
+    }
+
+    const ext = path.extname(filePath);
+    let contentType = 'text/html';
+    if (ext === '.mp4') contentType = 'video/mp4';
+    if (ext === '.jpg' || ext === '.jpeg') contentType = 'image/jpeg';
+    if (ext === '.png') contentType = 'image/png';
+    if (ext === '.js') contentType = 'application/javascript';
+    if (ext === '.css') contentType = 'text/css';
+
+    res.writeHead(200, { 'Content-Type': contentType });
+    res.end(data);
+  });
+});
+
+server.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}/`);
+});
